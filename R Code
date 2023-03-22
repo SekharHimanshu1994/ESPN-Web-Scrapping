@@ -1,0 +1,138 @@
+---
+title: "ESPN Web Scrapping"
+author: "Himanshu"
+date: "2023-03-21"
+output: html_document
+---
+Package Installation
+
+```{r Package Installation, warning=FALSE}
+library(rvest)
+library(htmltools)
+library(magrittr)
+library(dplyr)
+library(tidyverse)
+```
+
+Batting Information of Last Three World cup winners from 2007 to 2022
+
+```{r Batting, include=FALSE}
+teamz <- c(1,2,6)
+season <- c("2007%2F08", "2008%2F09", "2009%2F10", "2010%2F11", "2011%2F12", "2012%2F13", "2013%2F14",
+            "2014%2F15", "2015%2F16", "2016%2F17", "2017%2F18", "2018%2F19", "2019%2F20","2020%2F21","2021%2F22")
+all_team_batting_table <- list()
+for (team in teamz){
+  for (year in season) {
+    for (i in 1:9) {
+      url <- paste0("https://stats.espncricinfo.com/ci/engine/stats/index.html?class=2;page=",i,";season=",year,
+                    ";team=",team,";template=results;type=batting;view=innings")
+      html_object_1 <- url %>% read_html() %>% html_nodes(".engineTable:nth-child(4) .left:nth-child(1) b+ b") %>% html_text()
+        if (length(html_object_1) > 0 && i <= html_object_1) {
+            temp_batting_table <- url %>% read_html() %>% html_nodes("#ciHomeContentlhs > div.pnl650M > table:nth-child(5)") %>% html_table() %>% as.data.frame()
+            temp_batting_table$year <- paste0(year, "_", i)
+            temp_batting_table$team <- team
+            all_team_batting_table[[length(all_team_batting_table) + 1]] <- temp_batting_table
+            print(paste("Team",team,"page",i,"for",year, "has", ncol(temp_batting_table), "columns"))
+    }
+  }
+  print(year)
+}
+ print(team)
+}
+final_table_batting <- do.call(rbind, all_team_batting_table)      
+View(final_table_batting)
+write.csv(final_table_batting, "final_table_batting.csv")
+```
+
+Bowling Information of Last Three World cup winners from 2007 to 2022
+
+```{r Bowling, include=FALSE}
+teamz <- c(1,2,6)
+season <- c("2007%2F08", "2008%2F09", "2009%2F10", "2010%2F11", "2011%2F12", "2012%2F13", "2013%2F14",
+            "2014%2F15", "2015%2F16", "2016%2F17", "2017%2F18", "2018%2F19", "2019%2F20","2020%2F21","2021%2F22")
+all_team_bowling_table <- list()
+for (team in teamz){
+  for (year in season) {
+    for (i in 1:9) {
+      url <- paste0("https://stats.espncricinfo.com/ci/engine/stats/index.html?class=2;page=",i,";season=",year,
+                    ";team=",team,";template=results;type=bowling;view=innings")
+      html_object_1 <- url %>% read_html() %>% html_nodes(".engineTable:nth-child(4) .left:nth-child(1) b+ b") %>% html_text()
+        if (length(html_object_1) > 0 && i <= html_object_1) {
+        temp_bowling_table <- url %>% read_html() %>% html_nodes("#ciHomeContentlhs > div.pnl650M > table:nth-child(5)") %>% html_table() %>% as.data.frame()
+        temp_bowling_table$year <- paste0(year, "_", i)
+        temp_bowling_table$team <- team
+        all_team_bowling_table[[length(all_team_bowling_table) + 1]] <- temp_bowling_table
+        print(paste("Team",team,"page",i,"for",year, "has", ncol(temp_bowling_table), "columns"))
+      }
+    }
+    print(year)
+  }
+  print(team)
+}
+final_table_bowling <- do.call(rbind, all_team_bowling_table)      
+View(final_table_bowling)
+write.csv(final_table_bowling, "final_table_bowling.csv")
+```
+
+Fielding Information of Last Three World cup winners from 2007 to 2022
+
+```{r Fielding, include=FALSE}
+teamz <- c(1,2,6)
+season <- c("2007%2F08", "2008%2F09", "2009%2F10", "2010%2F11", "2011%2F12", "2012%2F13", "2013%2F14",
+            "2014%2F15", "2015%2F16", "2016%2F17", "2017%2F18", "2018%2F19", "2019%2F20","2020%2F21","2021%2F22")
+all_team_fielding_table <- list()
+for (team in teamz){
+  for (year in season) {
+    for (i in 1:9) {
+      url <- paste0("https://stats.espncricinfo.com/ci/engine/stats/index.html?class=2;page=",i,";season=",year,
+                    ";team=",team,";template=results;type=fielding;view=innings")
+      html_object_1 <- url %>% read_html() %>% html_nodes(".engineTable:nth-child(4) .left:nth-child(1) b+ b") %>% html_text()
+      if (length(html_object_1) > 0 && i <= html_object_1) {
+        temp_fielding_table <- url %>% read_html() %>% html_nodes("#ciHomeContentlhs > div.pnl650M > table:nth-child(5)") %>% html_table() %>% as.data.frame()
+        temp_fielding_table$year <- paste0(year, "_", i)
+        temp_fielding_table$team <- team
+        all_team_fielding_table[[length(all_team_fielding_table) + 1]] <- temp_fielding_table
+        print(paste("Team",team,"page",i,"for",year, "has", ncol(temp_fielding_table), "columns"))
+      }
+    }
+    print(year)
+  }
+  print(team)
+}
+final_table_fielding <- do.call(rbind, all_team_fielding_table)      
+View(final_table_fielding)
+write.csv(final_table_bowling, "final_table_fielding.csv")
+```
+
+Partnership Information of Last Three World cup winners from 2007 to 2022
+
+```{r Partnership, include=FALSE}
+
+teamz <- c(1,2)
+season <- c("2007%2F08", "2008%2F09", "2009%2F10", "2010%2F11", "2011%2F12", "2012%2F13", "2013%2F14",
+            "2014%2F15", "2015%2F16", "2016%2F17", "2017%2F18", "2018%2F19", "2019%2F20","2020%2F21","2021%2F22")
+all_team_fow_table <- list()
+for (team in teamz){
+  for (year in season) {
+    for (i in 1:9) {
+      url <- paste0("https://stats.espncricinfo.com/ci/engine/stats/index.html?class=2;page=",i,";season=",year,
+                    ";team=",team,";template=results;type=fow;view=innings")
+      html_object_1 <- url %>% read_html() %>% html_nodes(".engineTable:nth-child(4) .left:nth-child(1) b+ b") %>% html_text()
+      if (length(html_object_1) > 0 && i <= html_object_1) {
+          temp_fow_table <- url %>% read_html() %>% html_nodes("#ciHomeContentlhs > div.pnl650M > table:nth-child(5)") %>% html_table() %>% as.data.frame()
+        temp_fow_table$year <- paste0(year, "_", i)
+        temp_fow_table$team <- team
+        all_team_fow_table[[length(all_team_fow_table) + 1]] <- temp_fow_table
+        print(paste("Team",team,"page",i,"for",year, "has", ncol(temp_fow_table), "columns"))
+      }
+    }
+    print(year)
+  }
+  print(team)
+}
+final_table_partnership <- do.call(rbind, all_team_fow_table)      
+View(final_table_partnership)
+write.csv(final_table_partnership, "final_table_partnership.csv")
+```
+
+
