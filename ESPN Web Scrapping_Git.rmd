@@ -28,9 +28,9 @@ for (team in teamz){
     for (i in 1:9) {
       url <- paste0("https://stats.espncricinfo.com/ci/engine/stats/index.html?class=2;page=",i,";season=",year,
                     ";team=",team,";template=results;type=batting;view=innings")
-      html_object_1 <- url %>% read_html() %>% html_nodes(".engineTable:nth-child(4) .left:nth-child(1) b+ b") %>%                              html_text()
+      html_object_1 <- url %>% read_html() %>% html_nodes(".engineTable:nth-child(4) .left:nth-child(1) b+ b") %>% html_text()
         if (length(html_object_1) > 0 && i <= html_object_1) {
-            temp_batting_table <- url %>% read_html() %>% html_nodes("#ciHomeContentlhs > div.pnl650M >                                                    table:nth-child(5)") %>% html_table() %>% as.data.frame()
+            temp_batting_table <- url %>% read_html() %>% html_nodes("#ciHomeContentlhs > div.pnl650M > table:nth-child(5)") %>% html_table() %>% as.data.frame()
             temp_batting_table$year <- paste0(year, "_", i)
             temp_batting_table$team <- team
             all_team_batting_table[[length(all_team_batting_table) + 1]] <- temp_batting_table
@@ -58,9 +58,9 @@ for (team in teamz){
     for (i in 1:9) {
       url <- paste0("https://stats.espncricinfo.com/ci/engine/stats/index.html?class=2;page=",i,";season=",year,
                     ";team=",team,";template=results;type=bowling;view=innings")
-      html_object_1 <- url %>% read_html() %>% html_nodes(".engineTable:nth-child(4) .left:nth-child(1) b+ b") %>%                              html_text()
+      html_object_1 <- url %>% read_html() %>% html_nodes(".engineTable:nth-child(4) .left:nth-child(1) b+ b") %>% html_text()
         if (length(html_object_1) > 0 && i <= html_object_1) {
-        temp_bowling_table <- url %>% read_html() %>% html_nodes("#ciHomeContentlhs > div.pnl650M > table:nth-child(5)")                               %>% html_table() %>% as.data.frame()
+        temp_bowling_table <- url %>% read_html() %>% html_nodes("#ciHomeContentlhs > div.pnl650M > table:nth-child(5)") %>% html_table() %>% as.data.frame()
         temp_bowling_table$year <- paste0(year, "_", i)
         temp_bowling_table$team <- team
         all_team_bowling_table[[length(all_team_bowling_table) + 1]] <- temp_bowling_table
@@ -88,9 +88,9 @@ for (team in teamz){
     for (i in 1:9) {
       url <- paste0("https://stats.espncricinfo.com/ci/engine/stats/index.html?class=2;page=",i,";season=",year,
                     ";team=",team,";template=results;type=fielding;view=innings")
-      html_object_1 <- url %>% read_html() %>% html_nodes(".engineTable:nth-child(4) .left:nth-child(1) b+ b") %>%                              html_text()
+      html_object_1 <- url %>% read_html() %>% html_nodes(".engineTable:nth-child(4) .left:nth-child(1) b+ b") %>% html_text()
       if (length(html_object_1) > 0 && i <= html_object_1) {
-        temp_fielding_table <- url %>% read_html() %>% html_nodes("#ciHomeContentlhs > div.pnl650M > table:nth-child(5)")                                %>% html_table() %>% as.data.frame()
+        temp_fielding_table <- url %>% read_html() %>% html_nodes("#ciHomeContentlhs > div.pnl650M > table:nth-child(5)") %>% html_table() %>% as.data.frame()
         temp_fielding_table$year <- paste0(year, "_", i)
         temp_fielding_table$team <- team
         all_team_fielding_table[[length(all_team_fielding_table) + 1]] <- temp_fielding_table
@@ -119,9 +119,9 @@ for (team in teamz){
     for (i in 1:9) {
       url <- paste0("https://stats.espncricinfo.com/ci/engine/stats/index.html?class=2;page=",i,";season=",year,
                     ";team=",team,";template=results;type=fow;view=innings")
-      html_object_1 <- url %>% read_html() %>% html_nodes(".engineTable:nth-child(4) .left:nth-child(1) b+ b") %>%                              html_text()
+      html_object_1 <- url %>% read_html() %>% html_nodes(".engineTable:nth-child(4) .left:nth-child(1) b+ b") %>% html_text()
       if (length(html_object_1) > 0 && i <= html_object_1) {
-          temp_fow_table <- url %>% read_html() %>% html_nodes("#ciHomeContentlhs > div.pnl650M > table:nth-child(5)")                               %>% html_table() %>% as.data.frame()
+          temp_fow_table <- url %>% read_html() %>% html_nodes("#ciHomeContentlhs > div.pnl650M > table:nth-child(5)") %>% html_table() %>% as.data.frame()
         temp_fow_table$year <- paste0(year, "_", i)
         temp_fow_table$team <- team
         all_team_fow_table[[length(all_team_fow_table) + 1]] <- temp_fow_table
