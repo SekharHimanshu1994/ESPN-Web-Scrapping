@@ -52,3 +52,16 @@ SELECT
 /*Using Truncate to remove decimal places and modulus functio otherwise the code will take 40 balls to 6.66 over instead of 6.4 over*/
     CONCAT(TRUNCATE((total_balls/6),0), '.',(total_balls % 6)) AS total_over -- Converting total balls to overs
 FROM gg;
+
+/*4. What was the total dismissal, total cathces taken for each player between 2007 and 2011 for Team India?*/
+SELECT
+    Player,
+    SUM(dismissal) AS total_dismissal,
+    SUM(catches) AS total_catches
+FROM fielding
+WHERE Start_Date BETWEEN (SELECT (Finish_Date+1) FROM worldcup_date_table WHERE Worldcup = 2007) 
+                                                        AND
+                         (SELECT (Start_Date-1) FROM worldcup_date_table WHERE Worldcup = 2011)
+AND team = 6
+GROUP BY 1
+ORDER BY 2 DESC, 3 DESC;
