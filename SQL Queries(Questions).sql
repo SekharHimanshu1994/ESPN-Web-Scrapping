@@ -1,8 +1,8 @@
 /*1. How many matches were played between 2007 and 2011, and what was the average score per innings for each team?*/
 SELECT
     team,
-    COUNT(DISTINCT(Start_Date)) AS total_matches,
-    CEIL(SUM(Runs)/COUNT(DISTINCT(Start_Date))) AS Avg_Score --total runs by total matches, rounding up to the nearest integer
+    COUNT(DISTINCT(start_date)) AS total_matches,
+    CEIL(SUM(Runs)/COUNT(DISTINCT(start_date))) AS avg_score /*total runs by total matches, rounding up to the nearest integer*/
 FROM batting
 /*Selecting the dates after completion of previous world cup and before beginning of current world cup*/
 WHERE Start_Date BETWEEN (SELECT (Finish_Date+1) FROM worldcup_date_table WHERE Worldcup = 2007) 
