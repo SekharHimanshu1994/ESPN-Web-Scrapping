@@ -275,6 +275,4 @@ print(team)
 final_table_fow <- do.call(rbind, all_team_fow_table)
 
 View(final_table_fow)
-write.csv(final_table_fow, "final_table_fow-3.csv") 
-
-#---------------------End for scrapping fow Table------------------------
+write.csv(final_table_fow, "final_table_fow-3.csv")
