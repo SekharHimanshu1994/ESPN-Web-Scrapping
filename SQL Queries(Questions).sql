@@ -13,7 +13,7 @@ ORDER By 1;
 
 /*2. What was the total matches, total runs, batting average, strike rate, and number of centuries for each player between 2007 and 2011 for Team India?*/
 SELECT
-    Player,
+    player,
     COUNT(DISTINCT(Start_Date)) AS total_matches,
     SUM(Runs) AS total_runs,
     ROUND((SUM(Runs)/COUNT(Inns)),2) AS Avg_Score, -- dividing total runs by total innings, rounding to 2 decimal places
@@ -24,7 +24,7 @@ WHERE Start_Date BETWEEN (SELECT (Finish_Date+1) FROM worldcup_date_table WHERE 
                                                         AND
                          (SELECT (Start_Date-1) FROM worldcup_date_table WHERE Worldcup = 2011)
 AND team = 6 -- Filter for Team India
-AND Runs NOT IN ('DNB', 'TDNB') -- Exclude cases where the player did not bat
+AND Runs NOT IN ('DNB', 'TDNB', 'sub') -- Exclude cases where the player did not bat
 AND Strike_Rate <> 'No Ball Faced' -- Exclude cases where the player did not face a ball
 GROUP BY 1
 ORDER BY 2 DESC;
@@ -51,7 +51,7 @@ SELECT
     *,
 /*Using Truncate to remove decimal places and modulus functio otherwise the code will take 40 balls to 6.66 over instead of 6.4 over*/
     CONCAT(TRUNCATE((total_balls/6),0), '.',(total_balls % 6)) AS total_over -- Converting total balls to overs
-FROM gg;
+FROM CTE;
 
 /*4. What was the total dismissal, total cathces taken for each player between 2007 and 2011 for Team India?*/
 SELECT
